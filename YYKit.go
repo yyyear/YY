@@ -65,3 +65,13 @@ func YZMCreate() string {
 	rnd := rand.New(rand.NewSource(time.Now().UnixNano()))
 	return fmt.Sprintf("%06v", rnd.Int31n(1000000))
 }
+
+// SleepSecond 秒级别的 sleep
+func SleepSecond(duration int) {
+	time.Sleep(time.Duration(duration) * time.Second)
+}
+
+// SleepMilli 毫秒级别的 sleep
+func SleepMilli(duration int) {
+	time.Sleep(time.Duration(duration) * time.Millisecond)
+}
