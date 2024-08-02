@@ -79,13 +79,22 @@ func Relese() {
 }
 
 func Info(message ...interface{}) {
-	Logger.Info().CallerSkipFrame(1).Msg(ExpandText(message))
+	go func() {
+		Logger.Info().CallerSkipFrame(1).Msg(ExpandText(message))
+	}()
+
 }
 func Debug(message ...interface{}) {
-	Logger.Debug().CallerSkipFrame(1).Msg(ExpandText(message))
+	go func() {
+		Logger.Debug().CallerSkipFrame(1).Msg(ExpandText(message))
+	}()
+
 }
 func Error(message ...interface{}) {
-	Logger.Error().CallerSkipFrame(1).Msg(ExpandText(message))
+	go func() {
+		Logger.Error().CallerSkipFrame(1).Msg(ExpandText(message))
+	}()
+
 }
 
 func ExpandArrayText(msg []interface{}) string {
