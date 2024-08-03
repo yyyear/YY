@@ -10,11 +10,13 @@ import (
 
 var DEBUG bool = true
 
-func Str(i int) string {
-	return string(i)
+func Str(i int64, base int) string {
+
+	return strconv.FormatInt(i, base)
 }
-func StrInt32(i int32) string {
-	return string(i)
+func StrInt32(i int32, base int) string {
+
+	return Str(int64(i), base)
 }
 func StrInt64(i uint64) string {
 	return strconv.FormatUint(i, 10)
