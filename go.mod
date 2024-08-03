@@ -1,4 +1,4 @@
-module YY
+module github.com/yyyear/YY
 
 go 1.22
 
