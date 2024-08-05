@@ -10,11 +10,13 @@ import (
 
 var DEBUG bool = true
 
-func Str(i int) string {
-	return string(i)
+func Str(i int64, base int) string {
+
+	return strconv.FormatInt(i, base)
 }
-func StrInt32(i int32) string {
-	return string(i)
+func StrInt32(i int32, base int) string {
+
+	return Str(int64(i), base)
 }
 func StrInt64(i uint64) string {
 	return strconv.FormatUint(i, 10)
@@ -64,4 +66,14 @@ func AllNumberValid(e string, digit int) bool {
 func YZMCreate() string {
 	rnd := rand.New(rand.NewSource(time.Now().UnixNano()))
 	return fmt.Sprintf("%06v", rnd.Int31n(1000000))
+}
+
+// SleepSecond 秒级别的 sleep
+func SleepSecond(duration int) {
+	time.Sleep(time.Duration(duration) * time.Second)
+}
+
+// SleepMilli 毫秒级别的 sleep
+func SleepMilli(duration int) {
+	time.Sleep(time.Duration(duration) * time.Millisecond)
 }
