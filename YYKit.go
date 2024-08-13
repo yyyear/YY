@@ -56,8 +56,9 @@ func CreateNumber(bit int) string {
 }
 
 func Copy(original string) string {
-	// 创建一个新的字节切片，并复制原始字符串的内容
+	// 将字符串转换为字节切片
 	copyBytes := make([]byte, len(original))
+	// 复制原始字符串的内容到新的字节切片
 	copy(copyBytes, original)
 	// 将新的字节切片转换为字符串
 	return string(copyBytes)
