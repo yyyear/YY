@@ -55,6 +55,14 @@ func CreateNumber(bit int) string {
 	return result
 }
 
+func Copy(original string) string {
+	// 创建一个新的字节切片，并复制原始字符串的内容
+	copyBytes := make([]byte, len(original))
+	copy(copyBytes, original)
+	// 将新的字节切片转换为字符串
+	return string(copyBytes)
+}
+
 // AllNumberValid 全数字有效性验证
 func AllNumberValid(e string, digit int) bool {
 	res := fmt.Sprintf("^[0-9]{%d}$", digit)
