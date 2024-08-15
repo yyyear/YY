@@ -5,6 +5,7 @@ import (
 	"math/rand"
 	"regexp"
 	"strconv"
+	"strings"
 	"time"
 )
 
@@ -85,4 +86,20 @@ func SleepSecond(duration int) {
 // SleepMilli 毫秒级别的 sleep
 func SleepMilli(duration int) {
 	time.Sleep(time.Duration(duration) * time.Millisecond)
+}
+
+// ErrorString 解析Error成字符
+func ErrorString(err error) string {
+	if err != nil {
+		errStr := err.Error()
+		splist := " desc = "
+		if strings.Contains(errStr, splist) {
+			splists := strings.Split(errStr, splist)
+			if len(splists) == 2 {
+				return splists[1]
+			}
+		}
+		return errStr
+	}
+	return ""
 }
