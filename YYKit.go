@@ -47,11 +47,20 @@ func EmailValid(e string) bool {
 }
 
 var numberString = []string{"0", "1", "2", "3", "4", "5", "6", "7", "8", "9"}
+var codeString = []string{"0", "1", "2", "3", "4", "5", "6", "7", "8", "9", "A", "B", "C", "D", "E", "F", "G", "H", "J", "K", "L", "M", "N", "P", "Q", "R", "S", "T", "W", "X", "Y", "Z", "a", "b", "c", "d", "e", "f", "g", "h", "j", "k", "m", "n", "p", "q", "r", "s", "t", "w", "x", "y", "z"}
 
 func CreateNumber(bit int) string {
 	var result = ""
 	for i := 0; i < bit; i++ {
 		result = result + numberString[rand.Int31n(10)]
+	}
+	return result
+}
+
+func CreateRandomID(bit int) string {
+	var result = ""
+	for i := 0; i < bit; i++ {
+		result = result + codeString[rand.Int31n(len(codeString))]
 	}
 	return result
 }
