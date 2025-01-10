@@ -60,7 +60,8 @@ func CreateNumber(bit int) string {
 func CreateRandomID(bit int) string {
 	var result = ""
 	for i := 0; i < bit; i++ {
-		result = result + codeString[rand.Int31n(len(codeString))]
+
+		result = result + codeString[rand.Int31n(int32(len(codeString)))]
 	}
 	return result
 }
