@@ -1,6 +1,8 @@
 package YY
 
 import (
+	"crypto/md5"
+	"encoding/hex"
 	"fmt"
 	"math/rand"
 	"regexp"
@@ -112,4 +114,20 @@ func ErrorString(err error) string {
 		return errStr
 	}
 	return ""
+}
+
+// MD5 计算字符串的MD5哈希值
+func MD5(s string) string {
+	hash := md5.Sum([]byte(s))
+	return hex.EncodeToString(hash[:])
+}
+
+// MD5Upper 计算字符串的MD5哈希值并返回大写
+func MD5Upper(s string) string {
+	return strings.ToUpper(MD5(s))
+}
+
+// MD5Lower 计算字符串的MD5哈希值并返回小写
+func MD5Lower(s string) string {
+	return strings.ToLower(MD5(s))
 }
