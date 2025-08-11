@@ -16,7 +16,7 @@ var Logger zerolog.Logger
 var cronNew *cron.Cron
 
 func init() {
-
+	
 	logger()
 	i := 0
 	cronNew = cron.New()
@@ -46,9 +46,9 @@ func logger() {
 			return
 		}
 	}
-
+	
 	fileName := logDir + "/" + strconv.Itoa(now.Hour()) + ".log"
-
+	
 	consoleWriter := zerolog.ConsoleWriter{Out: os.Stdout, TimeFormat: timeFormat}
 	consoleWriter.FormatLevel = func(i interface{}) string {
 		return strings.ToUpper(fmt.Sprintf("| %-6s|", i))
@@ -62,14 +62,14 @@ func logger() {
 	consoleWriter.FormatFieldValue = func(i interface{}) string {
 		return fmt.Sprintf("%s;", i)
 	}
-
+	
 	multi := zerolog.MultiLevelWriter(consoleWriter)
 	if !DEBUG {
 		logFile, _ := os.OpenFile(fileName, os.O_CREATE|os.O_WRONLY|os.O_APPEND, 0644)
 		log.Println(logFile, fileName)
 		multi = zerolog.MultiLevelWriter(consoleWriter, logFile)
 	}
-
+	
 	Logger = zerolog.New(multi).With().Timestamp().Caller().Logger()
 	zerolog.SetGlobalLevel(zerolog.DebugLevel)
 }
@@ -77,14 +77,24 @@ func logger() {
 func Relese() {
 	cronNew.Stop()
 }
-
+func InfoLeve(level int, message ...interface{}) {
+	Logger.Info().CallerSkipFrame(1 + level).Msg(ExpandText(message))
+	
+}
+func DebugLeve(level int, message ...interface{}) {
+	Logger.Debug().CallerSkipFrame(1 + level).Msg(ExpandText(message))
+	
+}
+func ErrorLeve(level int, message ...interface{}) {
+	Logger.Error().CallerSkipFrame(1 + level).Msg(ExpandText(message))
+}
 func Info(message ...interface{}) {
 	Logger.Info().CallerSkipFrame(1).Msg(ExpandText(message))
-
+	
 }
 func Debug(message ...interface{}) {
 	Logger.Debug().CallerSkipFrame(1).Msg(ExpandText(message))
-
+	
 }
 func Error(message ...interface{}) {
 	Logger.Error().CallerSkipFrame(1).Msg(ExpandText(message))
@@ -101,7 +111,7 @@ func ExpandArrayText(msg []interface{}) string {
 func ExpandText(message interface{}) string {
 	result := ""
 	value := message
-
+	
 	var key string
 	switch value.(type) {
 	case float64:
@@ -161,7 +171,7 @@ func ExpandText(message interface{}) string {
 			newValue, _ := json.Marshal(value)
 			key = string(newValue)
 		}
-
+		
 	}
 	result = result + key
 	return result
