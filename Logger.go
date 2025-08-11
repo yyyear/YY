@@ -89,15 +89,15 @@ func ErrorLeve(level int, message ...interface{}) {
 	Logger.Error().CallerSkipFrame(1 + level).Msg(ExpandText(message))
 }
 func Info(message ...interface{}) {
-	Logger.Info().CallerSkipFrame(1).Msg(ExpandText(message))
+	InfoLeve(0, message...)
 	
 }
 func Debug(message ...interface{}) {
-	Logger.Debug().CallerSkipFrame(1).Msg(ExpandText(message))
+	DebugLeve(0, message...)
 	
 }
 func Error(message ...interface{}) {
-	Logger.Error().CallerSkipFrame(1).Msg(ExpandText(message))
+	ErrorLeve(0, message...)
 }
 
 func ExpandArrayText(msg []interface{}) string {
