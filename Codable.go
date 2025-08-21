@@ -19,6 +19,7 @@ func TryError(err error) Result[bool] {
 func (r Result[T]) Do() T {
 	if r.Error != nil {
 		ErrorLeve(1, "错误处理:", r.Error)
+		return *new(T)
 	}
 	return r.Value
 }

@@ -14,6 +14,7 @@ import (
 
 var Logger zerolog.Logger
 var cronNew *cron.Cron
+var DEBUG bool = true
 
 func init() {
 	
