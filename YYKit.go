@@ -12,6 +12,10 @@ import (
 	"time"
 )
 
+func init() {
+	str := Getwd()
+	rootPath = str
+}
 func Str(i int64, base int) string {
 	
 	return strconv.FormatInt(i, base)
@@ -177,6 +181,13 @@ func InterfaceToString(i interface{}) string {
 func Getwd() string {
 	str, _ := os.Getwd()
 	return str
+}
+
+var rootPath string
+
+// RootPath 获取当前目录
+func RootPath() string {
+	return rootPath
 }
 
 // ToString 简化版本的interface{}转string
