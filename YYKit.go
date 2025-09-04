@@ -5,6 +5,7 @@ import (
 	"encoding/hex"
 	"fmt"
 	"math/rand"
+	"os"
 	"regexp"
 	"strconv"
 	"strings"
@@ -170,6 +171,12 @@ func InterfaceToString(i interface{}) string {
 	default:
 		return fmt.Sprintf("%v", v)
 	}
+}
+
+// Getwd 获取当前目录
+func Getwd() string {
+	str, _ := os.Getwd()
+	return str
 }
 
 // ToString 简化版本的interface{}转string
