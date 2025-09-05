@@ -84,13 +84,22 @@ func Relese() {
 	cronNew.Stop()
 }
 func InfoLeve(level int, message ...interface{}) {
-	Logger.Info().CallerSkipFrame(2 + level).Msg(ExpandText(message))
+	go func() {
+		Logger.Info().CallerSkipFrame(3 + level).Msg(ExpandText(message))
+	}()
+	
 }
 func DebugLeve(level int, message ...interface{}) {
-	Logger.Debug().CallerSkipFrame(2 + level).Msg(ExpandText(message))
+	go func() {
+		Logger.Debug().CallerSkipFrame(3 + level).Msg(ExpandText(message))
+	}()
+	
 }
 func ErrorLeve(level int, message ...interface{}) {
-	Logger.Error().CallerSkipFrame(2 + level).Msg(ExpandText(message))
+	go func() {
+		Logger.Error().CallerSkipFrame(3 + level).Msg(ExpandText(message))
+	}()
+	
 }
 func Info(message ...interface{}) {
 	InfoLeve(0, message...)
