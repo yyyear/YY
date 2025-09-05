@@ -85,7 +85,7 @@ func Relese() {
 }
 func InfoLeve(level int, message ...interface{}) {
 	go func() {
-		Logger.Info().CallerSkipFrame(2 + level).Msg(ExpandText(message))
+		Logger.Info().Msg(ExpandText(message))
 	}()
 	
 }
