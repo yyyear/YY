@@ -8,6 +8,7 @@ require (
 	github.com/robfig/cron v1.2.0
 	github.com/rs/zerolog v1.34.0
 	google.golang.org/protobuf v1.36.8
+	github.com/panjf2000/ants/v2 v2.11.3
 )
 
 require (

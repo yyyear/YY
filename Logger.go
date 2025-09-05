@@ -3,18 +3,21 @@ package YY
 import (
 	"encoding/json"
 	"fmt"
-	"github.com/robfig/cron"
-	"github.com/rs/zerolog"
 	"log"
 	"os"
 	"strconv"
 	"strings"
 	"time"
+	
+	"github.com/panjf2000/ants/v2"
+	"github.com/robfig/cron"
+	"github.com/rs/zerolog"
 )
 
 var Logger zerolog.Logger
 var cronNew *cron.Cron
 var DEBUG bool = true
+var logPool *ants.Pool
 
 func init() {
 	
@@ -32,6 +35,8 @@ func init() {
 		return
 	}
 	cronNew.Start()
+	logPool1, _ := ants.NewPool(3)
+	logPool = logPool1
 }
 
 func logger() {
@@ -79,15 +84,20 @@ func Relese() {
 	cronNew.Stop()
 }
 func InfoLeve(level int, message ...interface{}) {
-	Logger.Info().CallerSkipFrame(2 + level).Msg(ExpandText(message))
+	_ = logPool.Submit(func() {
+		Logger.Info().CallerSkipFrame(2 + level).Msg(ExpandText(message))
+	})
 	
 }
 func DebugLeve(level int, message ...interface{}) {
-	Logger.Debug().CallerSkipFrame(2 + level).Msg(ExpandText(message))
-	
+	_ = logPool.Submit(func() {
+		Logger.Debug().CallerSkipFrame(2 + level).Msg(ExpandText(message))
+	})
 }
 func ErrorLeve(level int, message ...interface{}) {
-	Logger.Error().CallerSkipFrame(2 + level).Msg(ExpandText(message))
+	_ = logPool.Submit(func() {
+		Logger.Error().CallerSkipFrame(2 + level).Msg(ExpandText(message))
+	})
 }
 func Info(message ...interface{}) {
 	InfoLeve(0, message...)
