@@ -176,6 +176,29 @@ func InterfaceToString(i interface{}) string {
 		return fmt.Sprintf("%v", v)
 	}
 }
+func ArrayToMap[T any, K comparable](arr []T, action func(T) K) map[K]T {
+	result := make(map[K]T)
+	for _, v := range arr {
+		key := action(v)
+		result[key] = v
+	}
+	return result
+}
+
+func IntToString[T int | int8 | int16 | int32 | int64](s T, base int) string {
+	return strconv.FormatInt(int64(s), base)
+}
+
+func UIntToString[T uint | uint8 | uint16 | uint32 | uint64](s T, base int) string {
+	return strconv.FormatUint(uint64(s), base)
+}
+
+func ToString[T int | int8 | int16 | int32 | int64 | uint | uint8 | uint16 | uint32 | uint64](s T, base int) string {
+	if s >= 0 {
+		return UIntToString(uint64(s), base)
+	}
+	return IntToString(int64(s), base)
+}
 
 // Getwd 获取当前目录
 func Getwd() string {
@@ -188,9 +211,4 @@ var rootPath string
 // RootPath 获取当前目录
 func RootPath() string {
 	return rootPath
-}
-
-// ToString 简化版本的interface{}转string
-func ToString(i interface{}) string {
-	return InterfaceToString(i)
 }
