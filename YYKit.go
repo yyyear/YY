@@ -200,6 +200,14 @@ func ToString[T int | int8 | int16 | int32 | int64 | uint | uint8 | uint16 | uin
 	return IntToString(int64(s), base)
 }
 
+func Map[T any, R any](arr []T, action func(T) R) []R {
+	var result []R
+	for _, v := range arr {
+		result = append(result, action(v))
+	}
+	return result
+}
+
 // Getwd 获取当前目录
 func Getwd() string {
 	str, _ := os.Getwd()
