@@ -193,7 +193,13 @@ func UIntToString[T uint | uint8 | uint16 | uint32 | uint64](s T, base int) stri
 	return strconv.FormatUint(uint64(s), base)
 }
 
-func ToString[T int | int8 | int16 | int32 | int64 | uint | uint8 | uint16 | uint32 | uint64](s T, base int) string {
+func ToString[T int | int8 | int16 | int32 | int64 | uint | uint8 | uint16 | uint32 | uint64](s T) string {
+	if s >= 0 {
+		return UIntToString(uint64(s), 10)
+	}
+	return IntToString(int64(s), 10)
+}
+func ToBaseString[T int | int8 | int16 | int32 | int64 | uint | uint8 | uint16 | uint32 | uint64](s T, base int) string {
 	if s >= 0 {
 		return UIntToString(uint64(s), base)
 	}
