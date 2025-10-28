@@ -37,7 +37,8 @@ func Int32(s string) int32 {
 }
 
 func Int64(s string) int64 {
-	return int64(Int(s))
+	i, _ := strconv.ParseInt(s, 10, 64)
+	return i
 }
 
 // HitOrMiss 百分比命中
