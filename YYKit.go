@@ -40,6 +40,10 @@ func Int64(s string) int64 {
 	i, _ := strconv.ParseInt(s, 10, 64)
 	return i
 }
+func UInt64(s string) uint64 {
+	i, _ := strconv.ParseUint(s, 10, 64)
+	return i
+}
 
 // HitOrMiss 百分比命中
 func HitOrMiss(ration float32) bool {
