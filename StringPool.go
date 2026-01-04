@@ -25,7 +25,10 @@ func (b Build) Add(r string) Build {
 	j.WriteString(r)
 	return Build(j)
 }
-
+func (b Build) String() string {
+	builder := strings.Builder(b)
+	return builder.String()
+}
 func (b Build) Release() {
 	builder := strings.Builder(b)
 	builder.Reset()
