@@ -13,13 +13,14 @@ func init() {
 	}}
 }
 
-// Add 增加字符
-func Add(l string, r string) string {
-	builder := builderPool.Get().(*strings.Builder)
-	builder.WriteString(l)
-	builder.WriteString(r)
-	result := builder.String()
-	builder.Reset()
-	builderPool.Put(builder)
-	return result
+type NSString string
+
+// Builder 增加字符
+func Builder() *strings.Builder {
+	return builderPool.Get().(*strings.Builder)
+}
+
+func BuilderRelease(b *strings.Builder) {
+	b.Reset()
+	builderPool.Put(b)
 }
