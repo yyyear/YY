@@ -16,7 +16,7 @@ func init() {
 type Build strings.Builder
 
 func NewBuilder() Build {
-	return Build(builderPool.Get().(strings.Builder))
+	return builderPool.Get().(Build)
 }
 
 // Add 增加字符
