@@ -8,7 +8,7 @@ import (
 	"strconv"
 	"strings"
 	"time"
-	
+
 	"github.com/panjf2000/ants/v2"
 	"github.com/robfig/cron"
 	"github.com/rs/zerolog"
@@ -18,9 +18,18 @@ var Logger zerolog.Logger
 var cronNew *cron.Cron
 var DEBUG bool = true
 var logPool *ants.Pool
+var cnLoc *time.Location
 
 func init() {
-	
+	var err error
+	cnLoc, err = time.LoadLocation("Asia/Shanghai")
+	if err != nil {
+		cnLoc = time.FixedZone("CST", 8*3600)
+	}
+	zerolog.TimestampFunc = func() time.Time {
+		return time.Now().In(cnLoc)
+	}
+
 	logger()
 	i := 0
 	cronNew = cron.New()
@@ -42,7 +51,7 @@ func init() {
 func logger() {
 	timeFormat := "2006-01-02 15:04:05"
 	zerolog.TimeFieldFormat = timeFormat
-	now := time.Now()
+	now := time.Now().In(cnLoc)
 	logDir := "./run_log/" + now.Format("2006-01-02")
 	if !DEBUG {
 		// 创建log目录
@@ -52,9 +61,9 @@ func logger() {
 			return
 		}
 	}
-	
+
 	fileName := logDir + "/" + strconv.Itoa(now.Hour()) + ".log"
-	
+
 	consoleWriter := zerolog.ConsoleWriter{Out: os.Stdout, TimeFormat: timeFormat}
 	consoleWriter.FormatLevel = func(i interface{}) string {
 		return strings.ToUpper(fmt.Sprintf("| %-6s|", i))
@@ -68,14 +77,14 @@ func logger() {
 	consoleWriter.FormatFieldValue = func(i interface{}) string {
 		return fmt.Sprintf("%s;", i)
 	}
-	
+
 	multi := zerolog.MultiLevelWriter(consoleWriter)
 	if !DEBUG {
 		logFile, _ := os.OpenFile(fileName, os.O_CREATE|os.O_WRONLY|os.O_APPEND, 0644)
 		log.Println(logFile, fileName)
 		multi = zerolog.MultiLevelWriter(consoleWriter, logFile)
 	}
-	
+
 	Logger = zerolog.New(multi).With().Timestamp().Caller().Logger()
 	zerolog.SetGlobalLevel(zerolog.DebugLevel)
 }
@@ -91,15 +100,15 @@ func DebugLeve(level int, message ...interface{}) {
 }
 func ErrorLeve(level int, message ...interface{}) {
 	Logger.Error().CallerSkipFrame(2 + level).Msg(ExpandText(message))
-	
+
 }
 func Info(message ...interface{}) {
 	InfoLeve(0, message...)
-	
+
 }
 func Debug(message ...interface{}) {
 	DebugLeve(0, message...)
-	
+
 }
 func Error(message ...interface{}) {
 	ErrorLeve(0, message...)
@@ -116,7 +125,7 @@ func ExpandArrayText(msg []interface{}) string {
 func ExpandText(message interface{}) string {
 	result := ""
 	value := message
-	
+
 	var key string
 	switch value.(type) {
 	case float64:
@@ -176,7 +185,7 @@ func ExpandText(message interface{}) string {
 			newValue, _ := json.Marshal(value)
 			key = string(newValue)
 		}
-		
+
 	}
 	result = result + key
 	return result
