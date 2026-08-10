@@ -18,7 +18,7 @@ func TryError(err error) Result[bool] {
 
 func (r Result[T]) Do() T {
 	if r.Error != nil {
-		ErrorLeve(1, "错误处理:", r.Error)
+		Error("Result错误处理:", Fields{"error": r.Error})
 		return *new(T)
 	}
 	return r.Value
@@ -28,7 +28,7 @@ func (r Result[T]) Do() T {
 func Encode[T proto.Message](m T) []byte {
 	b, err := proto.Marshal(m)
 	if err != nil {
-		ErrorLeve(1, "转换数据错误:", err)
+		Error("转换数据错误:", Fields{"error": err})
 	}
 	return b
 }
