@@ -9,7 +9,7 @@ import (
 func ToInt64Base(s string, base int) int64 {
 	i, err := strconv.ParseInt(s, base, 64)
 	if err != nil {
-		Warn("ParseInt64 failed", Fields{"input": s, "error": err.Error()})
+		Info("ParseInt64 failed", err.Error())
 	}
 	return i
 }
@@ -26,7 +26,7 @@ func ToUInt64(s string) uint64 {
 func ToUInt64Base(s string, base int) uint64 {
 	i, err := strconv.ParseUint(s, base, 64)
 	if err != nil {
-		Warn("ParseInt64 failed", Fields{"input": s, "error": err.Error()})
+		Info("ParseInt64 failed", err.Error())
 	}
 	return i
 }
@@ -34,7 +34,7 @@ func ToUInt64Base(s string, base int) uint64 {
 // Integer 包含有符号和无符号整数（可根据需要增减）
 type Integer interface {
 	~int | ~int8 | ~int16 | ~int32 | ~int64 |
-		~uint | ~uint8 | ~uint16 | ~uint32 | ~uint64 | ~uintptr
+	~uint | ~uint8 | ~uint16 | ~uint32 | ~uint64 | ~uintptr
 }
 
 // ToStr 泛型转换数字到字符
