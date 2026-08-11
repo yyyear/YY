@@ -2,28 +2,27 @@ package YY
 
 import "sync"
 
-type Pool[T PoolItem[T]] struct {
-	p sync.Pool
-}
-
-// PoolItem 需要实现接口
-type PoolItem[T any] interface {
+type PoolItem interface {
 	Reset()
 }
 
-func NewPool[T PoolItem[T]](t T) *Pool[T] {
+type Pool[T PoolItem] struct {
+	pool sync.Pool
+}
+
+func NewPool[T PoolItem](newItem func() T) *Pool[T] {
 	return &Pool[T]{
-		p: sync.Pool{New: func() any {
-			return t
-		}},
+		pool: sync.Pool{
+			New: func() any { return newItem() },
+		},
 	}
 }
 
 func (p *Pool[T]) Get() T {
-	return p.p.Get().(T)
+	return p.pool.Get().(T)
 }
 
-func (p *Pool[T]) Put(t T) {
-	t.Reset()
-	p.p.Put(t)
+func (p *Pool[T]) Put(item T) {
+	item.Reset()
+	p.pool.Put(item)
 }
