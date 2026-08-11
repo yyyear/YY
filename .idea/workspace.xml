@@ -6,7 +6,6 @@
   <component name="ChangeListManager">
     <list default="true" id="3a8bd6df-971a-4d78-bed7-fd7b4be8568a" name="Changes" comment="时期按北京时间处理">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/conv.go" beforeDir="false" afterPath="$PROJECT_DIR$/conv.go" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
