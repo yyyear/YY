@@ -95,6 +95,9 @@ func Relese() {
 func InfoLeve(level int, message ...interface{}) {
 	Logger.Info().CallerSkipFrame(2 + level).Msg(ExpandText(message))
 }
+func WarnLeve(level int, message ...interface{}) {
+	Logger.Warn().CallerSkipFrame(2 + level).Msg(ExpandText(message))
+}
 func DebugLeve(level int, message ...interface{}) {
 	Logger.Debug().CallerSkipFrame(2 + level).Msg(ExpandText(message))
 }
@@ -104,7 +107,10 @@ func ErrorLeve(level int, message ...interface{}) {
 }
 func Info(message ...interface{}) {
 	InfoLeve(0, message...)
+}
 
+func Warn(message ...interface{}) {
+	WarnLeve(0, message...)
 }
 func Debug(message ...interface{}) {
 	DebugLeve(0, message...)
