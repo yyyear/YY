@@ -17,11 +17,11 @@ func init() {
 	rootPath = str
 }
 func Str(i int64, base int) string {
-	
+
 	return strconv.FormatInt(i, base)
 }
 func StrInt32(i int32, base int) string {
-	
+
 	return Str(int64(i), base)
 }
 func StrInt64(i uint64) string {
@@ -70,7 +70,7 @@ func CreateNumber(bit int) string {
 func CreateRandomID(bit int) string {
 	var result = ""
 	for i := 0; i < bit; i++ {
-		
+
 		result = result + codeString[rand.Int31n(int32(len(codeString)))]
 	}
 	return result
@@ -145,7 +145,7 @@ func InterfaceToString(i interface{}) string {
 	if i == nil {
 		return ""
 	}
-	
+
 	switch v := i.(type) {
 	case string:
 		return v
