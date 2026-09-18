@@ -48,6 +48,10 @@ func init() {
 	logPool = logPool1
 }
 
+func SetLogLevel(level zerolog.Level) {
+	zerolog.SetGlobalLevel(level)
+}
+
 func logger() {
 	timeFormat := "2006-01-02 15:04:05"
 	zerolog.TimeFieldFormat = timeFormat
