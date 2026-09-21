@@ -16,7 +16,7 @@ import (
 
 var Logger zerolog.Logger
 var cronNew *cron.Cron
-var DEBUG bool = true
+var TestMode bool = true
 var logPool *ants.Pool
 var cnLoc *time.Location
 
@@ -57,7 +57,7 @@ func logger() {
 	zerolog.TimeFieldFormat = timeFormat
 	now := time.Now().In(cnLoc)
 	logDir := "./run_log/" + now.Format("2006-01-02")
-	if !DEBUG {
+	if !TestMode {
 		// 创建log目录
 		err := os.MkdirAll(logDir, os.ModePerm)
 		if err != nil {
@@ -83,7 +83,7 @@ func logger() {
 	}
 
 	multi := zerolog.MultiLevelWriter(consoleWriter)
-	if !DEBUG {
+	if !TestMode {
 		logFile, _ := os.OpenFile(fileName, os.O_CREATE|os.O_WRONLY|os.O_APPEND, 0644)
 		log.Println(logFile, fileName)
 		multi = zerolog.MultiLevelWriter(consoleWriter, logFile)
