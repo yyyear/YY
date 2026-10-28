@@ -25,12 +25,13 @@ func (r Result[T]) Do() T {
 }
 
 // Encode proto Model 转 []byte
-func Encode[T proto.Message](m T) []byte {
+func Encode[T proto.Message](m T) ([]byte, error) {
 	b, err := proto.Marshal(m)
 	if err != nil {
 		Error("转换数据错误:", err)
+		return nil, err
 	}
-	return b
+	return b, nil
 }
 
 // Decode 转换 proto Model
