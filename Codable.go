@@ -54,6 +54,7 @@ func EncodeListPack[T proto.Message](ms []T) ([]byte, error) {
 	var lenBuf [binary.MaxVarintLen64]byte
 	for i, m := range ms {
 		b, err := Encode(m)
+
 		if err != nil {
 			Error("转换数据错误["+strconv.Itoa(i)+"]:", err)
 			return nil, err
